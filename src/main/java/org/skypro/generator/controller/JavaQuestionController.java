@@ -1,5 +1,4 @@
 package org.skypro.generator.controller;
-
 import org.skypro.generator.model.Question;
 import org.skypro.generator.service.JavaQuestionService;
 import org.skypro.generator.service.QuestionService;
@@ -7,8 +6,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-
-import java.util.HashSet;
 import java.util.Set;
 
 @RestController

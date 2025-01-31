@@ -1,25 +1,37 @@
 package org.skypro.generator.service;
 
 import org.skypro.generator.model.Question;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 
-import java.util.List;
+import java.io.IOException;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class ExaminerServiceImpl implements ExaminerService {
 
-    private final List<Question> examQuestions;
+    private final QuestionService questionService;
+    private Set<Question> examQuestions;
 
-    public ExaminerServiceImpl(List<Question> examQuestions) {
+    public ExaminerServiceImpl(QuestionService questionService, Set<Question> examQuestions) {
+        this.questionService = questionService;
         this.examQuestions = examQuestions;
     }
 
-    public List<Question> getExamQuestions() {
+    public Set<Question> getExamQuestions() {
         return examQuestions;
     }
 
     @Override
-    public List<Question> getQuestions(int amount) {
-        return null;
+    public Set<Question> getQuestions(int amount) {
+        if (amount > questionService.getAllQuestions().size()) {
+            return null;
+        }
+        return examQuestions = questionService.getAllQuestions().stream()
+                .limit(amount)
+                .collect(Collectors.toCollection(HashSet::new));
     }
 }

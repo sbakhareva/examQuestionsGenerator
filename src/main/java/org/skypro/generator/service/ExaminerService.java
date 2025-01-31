@@ -1,9 +1,8 @@
 package org.skypro.generator.service;
-
 import org.skypro.generator.model.Question;
-
-import java.util.List;
+import java.util.Set;
 
 public interface ExaminerService {
-    List<Question> getQuestions(int amount);
+
+    Set<Question> getQuestions(int amount);
 }
