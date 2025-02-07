@@ -1,5 +1,6 @@
 package org.skypro.generator.service;
 
+import org.skypro.generator.exceptions.TooLargeNumberRequestedException;
 import org.skypro.generator.model.Question;
 import org.springframework.stereotype.Service;
 import java.util.HashSet;
@@ -24,7 +25,7 @@ public class ExaminerServiceImpl implements ExaminerService {
     @Override
     public Set<Question> getQuestions(int amount) {
         if (amount > questionService.getAllQuestions().size()) {
-            return null;
+            throw new TooLargeNumberRequestedException("Слишком большое запрашиваемое число.");
         }
         return examQuestions = questionService.getAllQuestions().stream()
                 .limit(amount)
