@@ -24,7 +24,8 @@ public class JavaQuestionController {
     @GetMapping("/add")
     public String addQuestion(@RequestParam("question") String question,
                               @RequestParam("answer") String answer) {
-        javaQuestionService.addQA(question, answer);
+        Question newQuestion = new Question(question, answer);
+        javaQuestionService.addQuestion(newQuestion);
         return "Вопрос добавлен в список!";
     }
 

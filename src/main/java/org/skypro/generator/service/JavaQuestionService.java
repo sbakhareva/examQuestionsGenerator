@@ -2,7 +2,6 @@ package org.skypro.generator.service;
 import org.skypro.generator.model.Question;
 import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
-import org.springframework.web.context.annotation.SessionScope;
 
 import java.util.*;
 
@@ -29,8 +28,10 @@ public class JavaQuestionService implements QuestionService {
     @Override
     public void removeQuestion(String question, String answer) {
         List<Question> questionsToRemove = questions.stream()
-                .filter(q -> (q.getQuestion().toLowerCase().replace(" ", "")
+                .filter(q -> ((q.getQuestion().toLowerCase().replace(" ", "")
                         .contains(question)) || (q.getAnswer().contains(answer)))
+                        || (q.getAnswer().toLowerCase().replace(" ", "")
+                        .contains(q.getAnswer().toLowerCase().replace(" ", ""))))
                 .toList();
         questions.removeAll(questionsToRemove);
     }
@@ -45,5 +46,12 @@ public class JavaQuestionService implements QuestionService {
         Random a = new Random();
         int randomNumber = a.nextInt(questions.size());
         return questions.stream().toList().get(randomNumber);
+    }
+
+    @Override
+    public String toString() {
+        return "JavaQuestionService{" +
+                "questions=" + questions +
+                '}';
     }
 }

@@ -20,6 +20,14 @@ public class Question {
         return answer;
     }
 
+    public void setQuestion(String question) {
+        this.question = question;
+    }
+
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -31,5 +39,13 @@ public class Question {
     @Override
     public int hashCode() {
         return Objects.hash(question, answer);
+    }
+
+    @Override
+    public String toString() {
+        return "Question{" +
+                "question='" + question + '\'' +
+                ", answer='" + answer + '\'' +
+                '}';
     }
 }
