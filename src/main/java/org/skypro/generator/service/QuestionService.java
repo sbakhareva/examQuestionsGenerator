@@ -8,7 +8,7 @@ public interface QuestionService {
 
     void addQuestion(Question question);
 
-    void removeQuestion(String question, String answer);
+    void removeQuestion(Question question);
 
     Set<Question> getAllQuestions();
 

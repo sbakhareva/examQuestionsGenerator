@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class JavaQuestionService implements QuestionService {
@@ -20,14 +21,8 @@ public class JavaQuestionService implements QuestionService {
     }
 
     @Override
-    public void removeQuestion(String question, String answer) {
-        List<Question> questionsToRemove = questions.stream()
-                .filter(q -> ((q.getQuestion().toLowerCase().replace(" ", "")
-                        .contains(question)) || (q.getAnswer().contains(answer)))
-                        || (q.getAnswer().toLowerCase().replace(" ", "")
-                        .contains(q.getAnswer().toLowerCase().replace(" ", ""))))
-                .toList();
-        questions.removeAll(questionsToRemove);
+    public void removeQuestion(Question question) {
+        questions.removeIf(q -> q.getQuestion().contains(question.getQuestion()));
     }
 
     @Override
