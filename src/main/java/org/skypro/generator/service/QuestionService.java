@@ -6,8 +6,6 @@ import java.util.Set;
 
 public interface QuestionService {
 
-    void addQA(String question, String answer);
-
     void addQuestion(Question question);
 
     void removeQuestion(String question, String answer);

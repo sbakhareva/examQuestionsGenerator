@@ -13,6 +13,7 @@ import org.skypro.generator.model.Question;
 import org.skypro.generator.service.JavaQuestionService;
 
 import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
