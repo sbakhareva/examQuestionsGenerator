@@ -16,4 +16,9 @@ public class ExamControllerAdvice {
     public ResponseEntity<String> handleIncorrectValueException() {
         return ResponseEntity.badRequest().body("Вопрос или ответ не может быть пустым.");
     }
+
+    @ExceptionHandler(EmptyStorageException.class)
+    public ResponseEntity<String> handleEmptyStorageException() {
+        return ResponseEntity.badRequest().body("В хранилище нет вопросов!");
+    }
 }

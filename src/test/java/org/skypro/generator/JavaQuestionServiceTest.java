@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.skypro.generator.exceptions.EmptyStorageException;
 import org.skypro.generator.exceptions.IncorrectValueException;
 import org.skypro.generator.model.Question;
 import org.skypro.generator.service.JavaQuestionService;
@@ -73,7 +74,7 @@ public class JavaQuestionServiceTest {
 
     @Test
     void getAllQuestions_WhenStorageIsEmpty() {
-
+        Assertions.assertThrows(EmptyStorageException.class, () -> javaQuestionService.getAllQuestions());
     }
 
     @Test

@@ -1,4 +1,5 @@
 package org.skypro.generator.service;
+import org.skypro.generator.exceptions.EmptyStorageException;
 import org.skypro.generator.exceptions.IncorrectValueException;
 import org.skypro.generator.model.Question;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,9 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public Set<Question> getAllQuestions() {
+        if (questions.isEmpty()) {
+            throw new EmptyStorageException();
+        }
         return Collections.unmodifiableSet(questions);
     }
 
