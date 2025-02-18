@@ -4,20 +4,14 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.*;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.skypro.generator.exceptions.EmptyStorageException;
 import org.skypro.generator.exceptions.IncorrectValueException;
 import org.skypro.generator.model.Question;
 import org.skypro.generator.service.JavaQuestionService;
-import org.xmlunit.util.Linqy;
 
-import java.io.IOException;
 import java.util.HashSet;
-import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -25,6 +19,7 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class JavaQuestionServiceTest {
 
+    @Spy
     private HashSet<Question> questions;
 
     @InjectMocks
@@ -77,18 +72,24 @@ public class JavaQuestionServiceTest {
         Assertions.assertThrows(EmptyStorageException.class, () -> javaQuestionService.getAllQuestions());
     }
 
+    // здесь кажется тест не особо иметт смысл, потому что корректный вызов getAllQuestions не потверить через verify
     @Test
     void getAllQuestions_WhenThereAreQuestionsInStorage() {
-
+        Question q1 = new Question("aaaaa", "ooooooooo");
+        javaQuestionService.addQuestion(q1);
+        Mockito.verify(questions).add(q1);
+        Assertions.assertTrue(questions.contains(q1));
     }
 
     @Test
     void getRandomQuestion_WhenStorageIsEmpty() {
-
+        Assertions.assertThrows(EmptyStorageException.class, () -> javaQuestionService.getRandomQuestion());
     }
 
     @Test
     void getRandomQuestion_WhenThereAreQuestionsInStorage() {
-
+        Question q1 = new Question("uuuuu", "aaaaaaaa");
+        javaQuestionService.addQuestion(q1);
+        Assertions.assertEquals(q1, javaQuestionService.getRandomQuestion());
     }
 }

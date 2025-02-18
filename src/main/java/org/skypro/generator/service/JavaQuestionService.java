@@ -38,6 +38,9 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public Question getRandomQuestion() {
+        if (questions.isEmpty()) {
+            throw new EmptyStorageException();
+        }
         Random a = new Random();
         int randomNumber = a.nextInt(questions.size());
         return questions.stream().toList().get(randomNumber);
