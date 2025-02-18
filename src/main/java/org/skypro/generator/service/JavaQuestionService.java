@@ -1,10 +1,9 @@
 package org.skypro.generator.service;
+import org.skypro.generator.exceptions.IncorrectValueException;
 import org.skypro.generator.model.Question;
-import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class JavaQuestionService implements QuestionService {
@@ -17,6 +16,9 @@ public class JavaQuestionService implements QuestionService {
 
     @Override
     public void addQuestion(Question question) {
+        if (question.getQuestion().isBlank() || question.getAnswer().isBlank()) {
+            throw new IncorrectValueException();
+        }
         questions.add(question);
     }
 

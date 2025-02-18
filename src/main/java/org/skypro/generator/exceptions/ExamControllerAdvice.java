@@ -11,4 +11,9 @@ public class ExamControllerAdvice {
     public ResponseEntity<String> handleTooLargeNumberRequestedException() {
         return ResponseEntity.badRequest().body("Запрошено слишком большое число.");
     }
+
+    @ExceptionHandler(IncorrectValueException.class)
+    public ResponseEntity<String> handleIncorrectValueException() {
+        return ResponseEntity.badRequest().body("Вопрос или ответ не может быть пустым.");
+    }
 }
