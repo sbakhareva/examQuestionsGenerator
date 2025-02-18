@@ -60,6 +60,14 @@ public class JavaQuestionServiceTest {
 
     @Test
     void removeQuestionTest() {
+        Question q1 = new Question("1", "2");
+        Question q2 = new Question("3", "4");
+        javaQuestionService.addQuestion(q1);
+        javaQuestionService.addQuestion(q2);
+        javaQuestionService.removeQuestion(q1);
+        Assertions.assertEquals(1, questions.size());
+        Assertions.assertFalse(questions.toString().contains("1"));
+        Assertions.assertTrue(questions.toString().contains("3"));
 
     }
 
