@@ -10,6 +10,7 @@ import org.skypro.generator.exceptions.EmptyStorageException;
 import org.skypro.generator.exceptions.IncorrectValueException;
 import org.skypro.generator.model.Question;
 import org.skypro.generator.service.JavaQuestionService;
+import org.springframework.util.Assert;
 
 import java.util.HashSet;
 
@@ -79,6 +80,7 @@ public class JavaQuestionServiceTest {
         javaQuestionService.addQuestion(q1);
         Mockito.verify(questions).add(q1);
         Assertions.assertTrue(questions.contains(q1));
+        Assertions.assertFalse(javaQuestionService.getAllQuestions().isEmpty());
     }
 
     @Test
