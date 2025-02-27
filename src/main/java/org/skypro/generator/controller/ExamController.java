@@ -1,7 +1,7 @@
 package org.skypro.generator.controller;
 
 import org.skypro.generator.model.Question;
-import org.skypro.generator.service.ExaminerServiceImpl;
+import org.skypro.generator.service.impl.ExaminerServiceImpl;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;

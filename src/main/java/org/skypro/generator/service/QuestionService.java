@@ -1,7 +1,9 @@
 package org.skypro.generator.service;
 
 import org.skypro.generator.model.Question;
+import org.springframework.beans.factory.annotation.Qualifier;
 
+import java.util.Map;
 import java.util.Set;
 
 public interface QuestionService {

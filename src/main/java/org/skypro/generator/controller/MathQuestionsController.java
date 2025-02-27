@@ -1,6 +1,7 @@
 package org.skypro.generator.controller;
+
 import org.skypro.generator.model.Question;
-import org.skypro.generator.service.impl.JavaQuestionService;
+import org.skypro.generator.service.impl.MathQuestionService;
 import org.skypro.generator.service.QuestionService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,23 +12,24 @@ import java.util.Map;
 import java.util.Set;
 
 @RestController
-@RequestMapping("/exam/java")
-public class JavaQuestionController {
-    private final JavaQuestionService javaQuestionService;
+@RequestMapping("/exam/math")
+public class MathQuestionsController {
 
-    public JavaQuestionController(JavaQuestionService javaQuestionService) {
-        this.javaQuestionService = javaQuestionService;
+    private final MathQuestionService mathQuestionService;
+
+    public MathQuestionsController(MathQuestionService mathQuestionService) {
+        this.mathQuestionService = mathQuestionService;
     }
 
-    public QuestionService getJavaQuestionService() {
-        return javaQuestionService;
+    public QuestionService getMathQuestionService() {
+        return mathQuestionService;
     }
 
     @GetMapping("/add")
     public String addQuestion(@RequestParam("question") String question,
                               @RequestParam("answer") String answer) {
         Question newQuestion = new Question(question, answer);
-        javaQuestionService.addQuestion(newQuestion);
+        mathQuestionService.addQuestion(newQuestion);
         return "Вопрос добавлен в список!";
     }
 
@@ -35,13 +37,12 @@ public class JavaQuestionController {
     public String removeQuestion(@RequestParam("question") String question,
                                  @RequestParam("answer") String answer) {
         Question newQuestion = new Question(question, answer);
-        javaQuestionService.removeQuestion(newQuestion);
+        mathQuestionService.removeQuestion(newQuestion);
         return "Вопрос удалён из списка!";
     }
 
     @GetMapping
     public Set<Question> getAllQuestions() {
-        return javaQuestionService.getAllQuestions();
+        return mathQuestionService.getAllQuestions();
     }
-
 }
