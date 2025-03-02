@@ -15,6 +15,7 @@ public class MathQuestionRepository implements QuestionRepository {
 
     public MathQuestionRepository(Set<Question> mathQuestions) {
         this.mathQuestions = mathQuestions;
+        /*
         addQuestion(new Question("2 + 2", " = 4"));
         addQuestion(new Question("3 + 3", " = 9"));
         addQuestion(new Question("4 + 4", " = 8"));
@@ -23,6 +24,8 @@ public class MathQuestionRepository implements QuestionRepository {
         addQuestion(new Question("7 * 7", " = 49"));
         addQuestion(new Question("1 + 1", " = 2"));
         addQuestion(new Question("11 * 11", " = 121"));
+
+         */
     }
 
 

@@ -22,19 +22,14 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class MathQuestionServiceTest {
 
-    @Mock
-    private MathQuestionRepository mathQuestionRepository;
-
-    @Spy
     private Set<Question> questions;
 
-    @InjectMocks
     private MathQuestionService mathQuestionService;
 
     @BeforeEach
     void setUp() {
         questions = Mockito.spy(new HashSet<>());
-        mathQuestionRepository = new MathQuestionRepository(questions);
+        MathQuestionRepository mathQuestionRepository = new MathQuestionRepository(questions);
         mathQuestionService = new MathQuestionService(mathQuestionRepository);
     }
 
@@ -50,9 +45,9 @@ public class MathQuestionServiceTest {
     void addQA_WhenSameIsAlreadyInStorage() {
         Question q1 = new Question("3", "4");
         Question q2 = new Question("3", "4");
-        mathQuestionRepository.addQuestion(q1);
+        mathQuestionService.addQuestion(q1);
         verify(questions, times(1)).add(q1);
-        mathQuestionRepository.addQuestion(q2);
+        mathQuestionService.addQuestion(q2);
         assertEquals(1, questions.size()); // проверяю что нет возможности добавить два одинаковых вопроса
     }
 
@@ -69,9 +64,9 @@ public class MathQuestionServiceTest {
         mathQuestionService.addQuestion(q1);
         mathQuestionService.addQuestion(q2);
         mathQuestionService.removeQuestion(q1);
-        Assertions.assertEquals(1, mathQuestionService.getAllQuestions().size());
-        Assertions.assertFalse(mathQuestionService.getAllQuestions().contains(q1));
-        Assertions.assertTrue(mathQuestionService.getAllQuestions().contains(q2));
+        Assertions.assertEquals(1, questions.size());
+        Assertions.assertFalse(questions.contains(q1));
+        Assertions.assertTrue(questions.contains(q2));
 
     }
 
@@ -85,8 +80,8 @@ public class MathQuestionServiceTest {
         Question q1 = new Question("aaaaa", "ooooooooo");
         mathQuestionService.addQuestion(q1);
         Mockito.verify(questions).add(q1);
-        Assertions.assertTrue(mathQuestionService.getAllQuestions().contains(q1));
-        Assertions.assertFalse(mathQuestionService.getAllQuestions().isEmpty());
+        Assertions.assertTrue(questions.contains(q1));
+        Assertions.assertFalse(questions.isEmpty());
     }
 
     @Test

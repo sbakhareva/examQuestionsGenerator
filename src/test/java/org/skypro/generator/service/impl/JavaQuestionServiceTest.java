@@ -20,22 +20,16 @@ import static org.mockito.Mockito.*;
 @ExtendWith(MockitoExtension.class)
 public class JavaQuestionServiceTest {
 
-    @Mock
-    private JavaQuestionRepository javaQuestionRepository;
-
-    @Spy
     private Set<Question> questions;
 
-    @InjectMocks
     private JavaQuestionService javaQuestionService;
 
     @BeforeEach
     void setUp() {
         questions = Mockito.spy(new HashSet<>());
-        javaQuestionRepository = new JavaQuestionRepository(questions);
+        JavaQuestionRepository javaQuestionRepository = new JavaQuestionRepository(questions);
         javaQuestionService = new JavaQuestionService(javaQuestionRepository);
     }
-
     @Test
     void addQuestion_WhenQuestionIsNotNull() {
         Question q1 = new Question("aaaaa", "oooooo");
@@ -65,9 +59,9 @@ public class JavaQuestionServiceTest {
         javaQuestionService.addQuestion(q1);
         javaQuestionService.addQuestion(q2);
         javaQuestionService.removeQuestion(q1);
-        Assertions.assertEquals(1, questions.size());
-        Assertions.assertFalse(javaQuestionService.getAllQuestions().toString().contains("1"));
-        Assertions.assertTrue(javaQuestionService.getAllQuestions().toString().contains("3"));
+        Assertions.assertEquals(1, javaQuestionService.getAllQuestions().size());
+        Assertions.assertFalse(questions.toString().contains("1"));
+        Assertions.assertTrue(questions.toString().contains("3"));
 
     }
 
@@ -81,8 +75,8 @@ public class JavaQuestionServiceTest {
         Question q1 = new Question("aaaaa", "ooooooooo");
         javaQuestionService.addQuestion(q1);
         Mockito.verify(questions).add(q1);
-        Assertions.assertTrue(javaQuestionService.getAllQuestions().contains(q1));
-        Assertions.assertFalse(javaQuestionService.getAllQuestions().isEmpty());
+        Assertions.assertTrue(questions.contains(q1));
+        Assertions.assertFalse(questions.isEmpty());
     }
 
     @Test

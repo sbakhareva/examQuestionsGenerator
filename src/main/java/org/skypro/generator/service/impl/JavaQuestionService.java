@@ -3,6 +3,7 @@ import org.skypro.generator.exceptions.EmptyStorageException;
 import org.skypro.generator.model.Question;
 import org.skypro.generator.repository.impl.JavaQuestionRepository;
 import org.skypro.generator.service.QuestionService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -12,6 +13,7 @@ public class JavaQuestionService implements QuestionService {
 
     private final JavaQuestionRepository javaQuestionRepository;
 
+    @Autowired
     public JavaQuestionService(JavaQuestionRepository javaQuestionRepository) {
         this.javaQuestionRepository = javaQuestionRepository;
     }

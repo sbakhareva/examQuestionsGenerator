@@ -15,6 +15,7 @@ public class JavaQuestionRepository implements QuestionRepository {
 
     public JavaQuestionRepository(Set<Question> javaQuestions) {
         this.javaQuestions = javaQuestions;
+        /*
         addQuestion(new Question("вопрос", "ответ"));
         addQuestion(new Question("ещё вопрос", "ещё ответ"));
         addQuestion(new Question("третий вопрос", "третий ответ"));
@@ -24,6 +25,8 @@ public class JavaQuestionRepository implements QuestionRepository {
         addQuestion(new Question("седбмой вопрос", "ответ"));
         addQuestion(new Question("восьмой вопрос", "ответ"));
         addQuestion(new Question("девятый вопрос", "ответ"));
+
+         */
     }
 
     @Override
