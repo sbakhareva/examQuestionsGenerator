@@ -34,9 +34,6 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public void removeQuestion(Long id) {
-        if (questionRepository.getById(id).getQuestion().isBlank()) {
-            throw new RuntimeException("Строка поиска пуста!");
-        }
         questionRepository.deleteById(id);
     }
 
