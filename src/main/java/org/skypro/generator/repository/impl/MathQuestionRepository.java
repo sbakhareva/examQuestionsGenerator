@@ -11,9 +11,10 @@ import java.util.*;
 @Repository
 public class MathQuestionRepository implements QuestionRepository {
 
-    private final Set<Question> mathQuestions;
+    private final Random random = new Random();
+    private final Map<Long, Question> mathQuestions;
 
-    public MathQuestionRepository(Set<Question> mathQuestions) {
+    public MathQuestionRepository(Map<Long, Question> mathQuestions) {
         this.mathQuestions = mathQuestions;
         /*
         addQuestion(new Question("2 + 2", " = 4"));
@@ -34,19 +35,38 @@ public class MathQuestionRepository implements QuestionRepository {
         if (question.getQuestion().isBlank() || question.getAnswer().isBlank()) {
             throw new IncorrectValueException();
         }
-        mathQuestions.add(question);
+        List<String> q = mathQuestions.values().stream()
+                .map(Question::getQuestion)
+                .toList();
+        if (q.contains(question.getQuestion())) {
+            throw new IncorrectValueException("Вы пытаетесь добавить вопрос, который уже есть в хранилище!");
+        }
+        if (mathQuestions.containsValue(question)) {
+            throw new IncorrectValueException("Вы пытаетесь добавить вопрос, который уже есть в хранилище!");
+        }
+        mathQuestions.put(random.nextLong(), question);
     }
 
     @Override
-    public void remove(Question question) {
-        mathQuestions.removeIf(q -> q.getQuestion().contains(question.getQuestion()));
+    public void remove(String therm) {
+        if (therm.isBlank()) {
+            throw new RuntimeException("Строка поиска пуста!");
+        }
+        Iterator<Map.Entry<Long, Question>> iterator = mathQuestions.entrySet().iterator();
+
+        while (iterator.hasNext()) {
+            Question q = iterator.next().getValue();
+            if (q.getQuestion().contains(therm)) {
+                iterator.remove();
+            }
+        }
     }
 
     @Override
-    public Set<Question> getAll() {
+    public Map<Long, Question> getAll() {
         if (mathQuestions.isEmpty()) {
             throw new EmptyStorageException();
         }
-        return Collections.unmodifiableSet(mathQuestions);
+        return Collections.unmodifiableMap(mathQuestions);
     }
 }

@@ -13,7 +13,7 @@ public interface QuestionRepository {
 
     void addQuestion(Question question);
 
-    void remove(Question question);
+    void remove(String therm);
 
-    Set<Question> getAll();
+    Map<Long, Question> getAll();
 }

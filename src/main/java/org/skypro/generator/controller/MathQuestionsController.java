@@ -8,8 +8,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/exam/math")
@@ -34,15 +36,13 @@ public class MathQuestionsController {
     }
 
     @GetMapping("/remove")
-    public String removeQuestion(@RequestParam("question") String question,
-                                 @RequestParam("answer") String answer) {
-        Question newQuestion = new Question(question, answer);
-        mathQuestionService.removeQuestion(newQuestion);
+    public String removeQuestion(@RequestParam("question") String question) {
+        mathQuestionService.removeQuestion(question);
         return "Вопрос удалён из списка!";
     }
 
     @GetMapping
     public Set<Question> getAllQuestions() {
-        return mathQuestionService.getAllQuestions();
+        return new HashSet<>(mathQuestionService.getAllQuestions().values());
     }
 }

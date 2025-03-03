@@ -24,12 +24,12 @@ public class JavaQuestionService implements QuestionService {
     }
 
     @Override
-    public void removeQuestion(Question question) {
-        javaQuestionRepository.remove(question);
+    public void removeQuestion(String therm) {
+        javaQuestionRepository.remove(therm);
     }
 
     @Override
-    public Set<Question> getAllQuestions() {
+    public Map<Long, Question> getAllQuestions() {
         return javaQuestionRepository.getAll();
     }
 
@@ -39,8 +39,8 @@ public class JavaQuestionService implements QuestionService {
             throw new EmptyStorageException();
         }
         Random a = new Random();
-        int randomNumber = a.nextInt(javaQuestionRepository.getAll().size());
-        return javaQuestionRepository.getAll().stream().toList().get(randomNumber);
+        long randomNumber = a.nextLong(javaQuestionRepository.getAll().size());
+        return javaQuestionRepository.getAll().get(randomNumber);
     }
 
     @Override

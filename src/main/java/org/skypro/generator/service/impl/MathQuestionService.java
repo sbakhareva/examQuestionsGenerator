@@ -6,8 +6,8 @@ import org.skypro.generator.repository.impl.MathQuestionRepository;
 import org.skypro.generator.service.QuestionService;
 import org.springframework.stereotype.Service;
 
+import java.util.Map;
 import java.util.Random;
-import java.util.Set;
 
 @Service
 public class MathQuestionService implements QuestionService {
@@ -24,12 +24,12 @@ public class MathQuestionService implements QuestionService {
     }
 
     @Override
-    public void removeQuestion(Question question) {
-        mathQuestionRepository.remove(question);
+    public void removeQuestion(String therm) {
+        mathQuestionRepository.remove(therm);
     }
 
     @Override
-    public Set<Question> getAllQuestions() {
+    public Map<Long, Question> getAllQuestions() {
         return mathQuestionRepository.getAll();
     }
 
@@ -39,8 +39,8 @@ public class MathQuestionService implements QuestionService {
             throw new EmptyStorageException();
         }
         Random a = new Random();
-        int randomNumber = a.nextInt(mathQuestionRepository.getAll().size());
-        return mathQuestionRepository.getAll().stream().toList().get(randomNumber);
+        Long randomNumber = a.nextLong(mathQuestionRepository.getAll().size());
+        return mathQuestionRepository.getAll().get(randomNumber);
     }
 }
 

@@ -1,18 +1,16 @@
 package org.skypro.generator.service;
 
 import org.skypro.generator.model.Question;
-import org.springframework.beans.factory.annotation.Qualifier;
 
 import java.util.Map;
-import java.util.Set;
 
 public interface QuestionService {
 
     void addQuestion(Question question);
 
-    void removeQuestion(Question question);
+    void removeQuestion(String therm);
 
-    Set<Question> getAllQuestions();
+    Map<Long, Question> getAllQuestions();
 
     Question getRandomQuestion();
 }

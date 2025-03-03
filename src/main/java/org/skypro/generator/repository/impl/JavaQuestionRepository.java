@@ -7,13 +7,15 @@ import org.skypro.generator.repository.QuestionRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Repository
 public class JavaQuestionRepository implements QuestionRepository {
 
-    private final Set<Question> javaQuestions;
+    private final Random random = new Random();
+    private final HashMap<Long, Question> javaQuestions;
 
-    public JavaQuestionRepository(Set<Question> javaQuestions) {
+    public JavaQuestionRepository(HashMap<Long, Question> javaQuestions) {
         this.javaQuestions = javaQuestions;
         /*
         addQuestion(new Question("вопрос", "ответ"));
@@ -34,19 +36,35 @@ public class JavaQuestionRepository implements QuestionRepository {
         if (question.getQuestion().isBlank() || question.getAnswer().isBlank()) {
             throw new IncorrectValueException();
         }
-        javaQuestions.add(question);
+        List<String> q = javaQuestions.values().stream()
+                .map(Question::getQuestion)
+                .toList();
+        if (q.contains(question.getQuestion())) {
+            throw new IncorrectValueException("Вы пытаетесь добавить вопрос, который уже есть в хранилище!");
+        }
+        javaQuestions.put(random.nextLong(), question);
     }
 
     @Override
-    public void remove(Question question) {
-        javaQuestions.removeIf(q -> q.getQuestion().contains(question.getQuestion()));
+    public void remove(String therm) {
+        if (therm.isBlank()) {
+            throw new RuntimeException("Строка поиска пуста!");
+        }
+        Iterator<Map.Entry<Long, Question>> iterator = javaQuestions.entrySet().iterator();
+
+        while (iterator.hasNext()) {
+            Question q = iterator.next().getValue();
+            if (q.getQuestion().contains(therm)) {
+                iterator.remove();
+            }
+        }
     }
 
     @Override
-    public Set<Question> getAll() {
+    public Map<Long, Question> getAll() {
         if (javaQuestions.isEmpty()) {
             throw new EmptyStorageException();
         }
-        return Collections.unmodifiableSet(javaQuestions);
+        return Collections.unmodifiableMap(javaQuestions);
     }
 }
