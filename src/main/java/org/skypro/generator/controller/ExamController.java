@@ -23,7 +23,7 @@ public class ExamController {
     }
 
     @GetMapping
-    public Set<Question>  getQuestions(@RequestParam("amount") int amount) {
+    public Set<Question> getQuestions(@RequestParam("amount") int amount) {
         return examinerServiceImpl.getQuestions(amount);
     }
 }

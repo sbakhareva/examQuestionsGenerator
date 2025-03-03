@@ -15,21 +15,19 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @ExtendWith(MockitoExtension.class)
 class MathQuestionRepositoryTest {
-    private HashMap<Long, Question> questions;
 
     private MathQuestionRepository mathQuestionRepository;
 
     @BeforeEach
     void setUp() {
-        questions = new HashMap<>();
-        mathQuestionRepository = new MathQuestionRepository(questions);
+        mathQuestionRepository = new MathQuestionRepository();
     }
 
     @Test
     void addQuestion() {
         Question q1 = new Question("aaaaa", "oooooo");
         mathQuestionRepository.addQuestion(q1);
-        assertTrue(questions.containsValue(q1));
+        assertTrue(mathQuestionRepository.getAll().containsValue(q1));
     }
 
     @Test
@@ -45,7 +43,7 @@ class MathQuestionRepositoryTest {
         Question q1 = new Question("aaa", "ooo");
         Question q2 = new Question("aaa", "ooo");
         mathQuestionRepository.addQuestion(q1);
-        assertTrue(questions.containsValue(q1));
+        assertTrue(mathQuestionRepository.getAll().containsValue(q1));
         Assertions.assertThrows(IncorrectValueException.class, () -> mathQuestionRepository.addQuestion(q2));
     }
 

@@ -2,15 +2,15 @@ package org.skypro.generator.service;
 
 import org.skypro.generator.model.Question;
 
-import java.util.Map;
+import java.util.List;
 
 public interface QuestionService {
 
     void addQuestion(Question question);
 
-    void removeQuestion(String therm);
+    void removeQuestion(Long id);
 
-    Map<Long, Question> getAllQuestions();
+    List<Question> getAllQuestions();
 
     Question getRandomQuestion();
 }

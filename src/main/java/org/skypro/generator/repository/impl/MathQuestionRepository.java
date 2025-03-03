@@ -8,15 +8,13 @@ import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
-@Repository
-public class MathQuestionRepository implements QuestionRepository {
+public class MathQuestionRepository {
 
     private final Random random = new Random();
     private final Map<Long, Question> mathQuestions;
 
-    public MathQuestionRepository(Map<Long, Question> mathQuestions) {
-        this.mathQuestions = mathQuestions;
-        /*
+    public MathQuestionRepository() {
+        this.mathQuestions = new HashMap<>();
         addQuestion(new Question("2 + 2", " = 4"));
         addQuestion(new Question("3 + 3", " = 9"));
         addQuestion(new Question("4 + 4", " = 8"));
@@ -25,12 +23,8 @@ public class MathQuestionRepository implements QuestionRepository {
         addQuestion(new Question("7 * 7", " = 49"));
         addQuestion(new Question("1 + 1", " = 2"));
         addQuestion(new Question("11 * 11", " = 121"));
-
-         */
     }
-
-
-    @Override
+    
     public void addQuestion(Question question) {
         if (question.getQuestion().isBlank() || question.getAnswer().isBlank()) {
             throw new IncorrectValueException();
@@ -41,13 +35,9 @@ public class MathQuestionRepository implements QuestionRepository {
         if (q.contains(question.getQuestion())) {
             throw new IncorrectValueException("Вы пытаетесь добавить вопрос, который уже есть в хранилище!");
         }
-        if (mathQuestions.containsValue(question)) {
-            throw new IncorrectValueException("Вы пытаетесь добавить вопрос, который уже есть в хранилище!");
-        }
         mathQuestions.put(random.nextLong(), question);
     }
 
-    @Override
     public void remove(String therm) {
         if (therm.isBlank()) {
             throw new RuntimeException("Строка поиска пуста!");
@@ -62,7 +52,6 @@ public class MathQuestionRepository implements QuestionRepository {
         }
     }
 
-    @Override
     public Map<Long, Question> getAll() {
         if (mathQuestions.isEmpty()) {
             throw new EmptyStorageException();
