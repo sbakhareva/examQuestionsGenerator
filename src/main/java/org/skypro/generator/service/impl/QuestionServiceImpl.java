@@ -33,8 +33,9 @@ public class QuestionServiceImpl implements QuestionService {
     }
 
     @Override
-    public void removeQuestion(Long id) {
-        questionRepository.deleteById(id);
+    public void removeQuestion(String therm) {
+        Question q = questionRepository.findByQuestionContaining(therm);
+        questionRepository.deleteById(q.getId());
     }
 
     @Override

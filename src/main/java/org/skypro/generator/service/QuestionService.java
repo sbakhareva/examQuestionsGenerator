@@ -8,7 +8,7 @@ public interface QuestionService {
 
     void addQuestion(Question question);
 
-    void removeQuestion(Long id);
+    void removeQuestion(String therm);
 
     List<Question> getAllQuestions();
 

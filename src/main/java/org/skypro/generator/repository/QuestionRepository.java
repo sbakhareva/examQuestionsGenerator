@@ -8,6 +8,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface QuestionRepository extends JpaRepository<Question, Long> {
 
-//    @Query()
-//    void deleteByQuestion(String therm);
+    Question findByQuestionContaining(String therm);
 }

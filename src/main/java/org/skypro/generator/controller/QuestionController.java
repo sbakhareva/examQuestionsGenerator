@@ -34,8 +34,8 @@ public class QuestionController {
     }
 
     @GetMapping("/remove")
-    public String removeQuestion(@RequestParam("id") Long id) {
-        questionService.removeQuestion(id);
+    public String removeQuestion(@RequestParam("therm") String therm) {
+        questionService.removeQuestion(therm);
         return "Вопрос удалён из списка!";
     }
 
