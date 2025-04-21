@@ -1,4 +1,4 @@
-package org.skypro.generator.exceptions;
+package org.skypro.generator.model.exceptions;
 
 import java.io.IOException;
 

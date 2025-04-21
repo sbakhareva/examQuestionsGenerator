@@ -1,4 +1,4 @@
-package org.skypro.generator.exceptions;
+package org.skypro.generator.model.exceptions;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

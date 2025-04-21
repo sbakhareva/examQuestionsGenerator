@@ -8,8 +8,8 @@
 //import org.skypro.generator.exceptions.EmptyStorageException;
 //import org.skypro.generator.exceptions.TooLargeNumberRequestedException;
 //import org.skypro.generator.model.Question;
-//import org.skypro.generator.repository.impl.JavaQuestionRepository;
-//import org.skypro.generator.repository.impl.MathQuestionRepository;
+//import org.skypro.generator.repository.JavaQuestionRepository;
+//import org.skypro.generator.repository.MathQuestionRepository;
 //
 //import java.util.*;
 //import static org.mockito.Mockito.when;
