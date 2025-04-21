@@ -1,87 +1,81 @@
-//package org.skypro.generator.service.impl;
-//
-//import org.junit.jupiter.api.Assertions;
-//import org.junit.jupiter.api.BeforeEach;
-//import org.junit.jupiter.api.Test;
-//import org.junit.jupiter.api.extension.ExtendWith;
-//import org.mockito.*;
-//import org.mockito.junit.jupiter.MockitoExtension;
-//import org.skypro.generator.exceptions.EmptyStorageException;
-//import org.skypro.generator.exceptions.IncorrectValueException;
-//import org.skypro.generator.model.Question;
-//import org.skypro.generator.repository.QuestionRepository;
-//
-//import java.util.*;
-//
-//import static org.junit.jupiter.api.Assertions.*;
-//import static org.mockito.Mockito.*;
-//
-//@ExtendWith(MockitoExtension.class)
-//public class JavaQuestionServiceTest {
-//
-//    @Mock
-//    private QuestionRepository questionRepository;
-//
-//    @InjectMocks
-//    private QuestionServiceImpl questionServiceImpl;
-//
-//    @Test
-//    void addQuestion_WhenQuestionIsNotNull() {
-//        Question q1 = new Question("aaaaa", "oooooo");
-//        questionServiceImpl.addQuestion(q1);
-//        Mockito.verify(questionRepository).save(q1);
-//        assertTrue(questionRepository.findAll().contains(q1));
-//    }
-//
-//    @Test
-//    void addQuestion_WhenSameIsAlreadyInStorage() {
-//        Question q1 = new Question("3", "4");
-//        Question q2 = new Question("3", "4");
-//        questionServiceImpl.addQuestion(q1);
-//        assertTrue(questionRepository.findAll().contains(q1));
-//        assertThrows(IncorrectValueException.class, () -> questionServiceImpl.addQuestion(q2));
-//        assertEquals(1, questionRepository.findAll().size());
-//    }
-//
-//    @Test
-//    void addQuestion_WhenValueIsEmpty() {
-//        Question q1 = new Question("    ", "answer");
-//        Assertions.assertThrows(IncorrectValueException.class, () -> questionServiceImpl.addQuestion(q1));
-//    }
-//    @Test
-//    void removeQuestionTest() {
-//        Question q1 = new Question("1", "2");
-//        Question q2 = new Question("3", "4");
-//        questionServiceImpl.addQuestion(q1);
-//        questionServiceImpl.addQuestion(q2);
-//        questionServiceImpl.removeQuestion("1");
-//        Assertions.assertEquals(1, questionRepository.findAll().size());
-//        assertTrue(questionRepository.findAll().toString().contains("3"));
-//    }
-//
-//    @Test
-//    void getAllQuestions_WhenStorageIsEmpty() {
-//        Assertions.assertThrows(EmptyStorageException.class, () -> questionServiceImpl.getAllQuestions());
-//    }
-//
-//    @Test
-//    void getAllQuestions_WhenThereAreQuestionsInStorage() {
-//        Question q1 = new Question("aaaaa", "ooooooooo");
-//        questionServiceImpl.addQuestion(q1);
-//        assertTrue(questionRepository.findAll().contains(q1));
-//        Assertions.assertFalse(questionServiceImpl.getAllQuestions().isEmpty());
-//    }
-//
-//    @Test
-//    void getRandomQuestion_WhenStorageIsEmpty() {
-//        Assertions.assertThrows(EmptyStorageException.class, () -> questionServiceImpl.getRandomQuestion());
-//    }
-//
-//    @Test
-//    void getRandomQuestion_WhenThereAreQuestionsInStorage() {
-//        Question q1 = new Question("uuuuu", "aaaaaaaa");
-//        questionServiceImpl.addQuestion(q1);
-//        when(questionServiceImpl.getRandomQuestion()).thenReturn(q1);
-//        Assertions.assertEquals(q1, questionServiceImpl.getRandomQuestion());
-//    }
-//}
+package org.skypro.generator.service.impl;
+
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.*;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.skypro.generator.model.exceptions.EmptyStorageException;
+import org.skypro.generator.model.exceptions.IncorrectValueException;
+import org.skypro.generator.model.questionEx.JavaQuestion;
+import org.skypro.generator.repository.JavaQuestionRepository;
+
+import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
+
+@ExtendWith(MockitoExtension.class)
+public class JavaQuestionServiceTest {
+
+    @Mock
+    private JavaQuestionRepository javaQuestionRepository;
+
+    @InjectMocks
+    private JavaQuestionServiceImpl javaQuestionService;
+
+    @Test
+    void addQuestion_WhenQuestionIsNotNull() {
+        JavaQuestion q1 = new JavaQuestion("question", "answer");
+        javaQuestionService.addQuestion(q1);
+        verify(javaQuestionRepository).save(q1);
+    }
+
+    @Test
+    void addQuestion_WhenSameIsAlreadyInStorage() {
+        JavaQuestion question1 = new JavaQuestion("question", "answer");
+        JavaQuestion question2 = new JavaQuestion("question", "answer");
+        javaQuestionService.addQuestion(question1);
+        when(javaQuestionRepository.findAll()).thenReturn(List.of(question1));
+        verify(javaQuestionRepository).save(question1);
+        assertThrows(IncorrectValueException.class, () -> javaQuestionService.addQuestion(question2));
+    }
+
+    @Test
+    void addQuestion_WhenValueIsEmpty() {
+        JavaQuestion question1 = new JavaQuestion("    ", "answer");
+        Assertions.assertThrows(IncorrectValueException.class, () -> javaQuestionService.addQuestion(question1));
+    }
+    @Test
+    void removeQuestionTest() {
+        JavaQuestion q1 = new JavaQuestion("question", "answer");
+        JavaQuestion q2 = new JavaQuestion("another", "one");
+        when(javaQuestionRepository.findAll()).thenReturn(List.of(q1, q2));
+        javaQuestionService.removeByTherm("question");
+        verify(javaQuestionRepository).deleteByQuestionIgnoreCaseContains("question");
+    }
+
+    @Test
+    void getAllQuestions_WhenStorageIsEmpty() {
+        Assertions.assertThrows(EmptyStorageException.class, () -> javaQuestionService.getAll());
+    }
+
+    @Test
+    void getAllQuestions_WhenThereAreQuestionsInStorage() {
+        JavaQuestion question1 = new JavaQuestion("question", "answer");
+        when(javaQuestionRepository.findAll()).thenReturn(List.of(question1));
+        assertTrue(javaQuestionService.getAll().contains(question1));
+    }
+
+    @Test
+    void getRandomQuestion_WhenStorageIsEmpty() {
+        Assertions.assertThrows(EmptyStorageException.class, () -> javaQuestionService.getRandomQuestion());
+    }
+
+    @Test
+    void getRandomQuestion_WhenThereAreQuestionsInStorage() {
+        JavaQuestion q1 = new JavaQuestion("question", "answer");
+        when(javaQuestionRepository.findAll()).thenReturn(List.of(q1));
+        Assertions.assertEquals(q1, javaQuestionService.getRandomQuestion());
+    }
+}
