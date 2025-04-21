@@ -1,6 +1,8 @@
 package org.skypro.generator.model.questionEx;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Objects;
 
