@@ -15,9 +15,9 @@ public class JavaQuestion {
 
     private JavaQuestion() {}
 
-    public JavaQuestion(String answer, String question) {
-        this.answer = answer;
+    public JavaQuestion(String question, String answer) {
         this.question = question;
+        this.answer = answer;
     }
 
     public Long getId() {
