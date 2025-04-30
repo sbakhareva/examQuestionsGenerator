@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @ToString
@@ -18,4 +16,12 @@ public class MathQuestion {
 
     private String question;
     private String answer;
+
+    public MathQuestion() {
+    }
+
+    public MathQuestion(String question, String answer) {
+        this.question = question;
+        this.answer = answer;
+    }
 }

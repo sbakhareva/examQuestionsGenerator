@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@NoArgsConstructor
-@AllArgsConstructor
 @Getter
 @Setter
 @ToString
@@ -17,4 +15,12 @@ public class JavaQuestion {
 
     private String question;
     private String answer;
+
+    public JavaQuestion() {
+    }
+
+    public JavaQuestion(String question, String answer) {
+        this.question = question;
+        this.answer = answer;
+    }
 }
