@@ -24,21 +24,9 @@ public class ExaminerServiceImpl implements ExaminerService {
     public List<Question> getQuestions(int amount) {
         List<Question> questions = new ArrayList<>();
 
-        questions.addAll(javaQuestionService.getAll().stream()
-                .map(q -> {
-                    return new Question(
-                            q.getQuestion(),
-                            q.getAnswer());
-                })
-                .toList());
+        questions.addAll(javaQuestionService.getAll());
 
-        questions.addAll(mathQuestionService.getAll().stream()
-                .map(q -> {
-                    return new Question(
-                            q.getQuestion(),
-                            q.getAnswer());
-                })
-                .toList());
+        questions.addAll(mathQuestionService.getAll());
 
         if (questions.isEmpty()) {
             throw new EmptyStorageException();
