@@ -12,6 +12,7 @@ import org.skypro.generator.model.Question;
 @Getter
 @Setter
 @ToString
+@RequiredArgsConstructor
 @EqualsAndHashCode(callSuper = false)
 public class JavaQuestion extends Question {
     @Id

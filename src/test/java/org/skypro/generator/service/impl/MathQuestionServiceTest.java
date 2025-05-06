@@ -8,9 +8,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.skypro.generator.model.exceptions.EmptyStorageException;
 import org.skypro.generator.model.exceptions.IncorrectValueException;
-import org.skypro.generator.model.questionEx.JavaQuestion;
 import org.skypro.generator.model.questionEx.MathQuestion;
-import org.skypro.generator.repository.JavaQuestionRepository;
 import org.skypro.generator.repository.MathQuestionRepository;
 
 import java.util.List;
